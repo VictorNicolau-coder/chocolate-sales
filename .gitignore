@@ -1,5 +1,2 @@
 #Dependencies
 .venv/
-
-#Data
-src/csv/
