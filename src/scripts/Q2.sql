@@ -1,11 +1,40 @@
---- Monitorar qualidade de dados e priorização
-USE chocolatesales;
+CREATE OR REPLACE VIEW vw_monitoramento_vendas AS
+WITH vendas_lojas AS (
+    SELECT
+        stores.store_id,
+        stores.store_name,
+        stores.country,
+        YEAR(sales.order_date) AS ano,
+        MONTH(sales.order_date) AS mes,
+        ROUND(SUM(sales.profit), 2) AS lucro_total
+    FROM sales
+    INNER JOIN stores ON sales.store_id = stores.store_id
+    GROUP BY
+        stores.store_id,
+        stores.store_name,
+        stores.country,
+        YEAR(sales.order_date),
+        MONTH(sales.order_date)
+),
+media_global AS (SELECT ROUND(AVG(lucro_total), 2) AS media_lucro FROM vendas_lojas)
+SELECT
+    v.store_id,
+    v.store_name,
+    v.country,
+    v.ano,
+    v.mes,
+    v.lucro_total,
+    m.media_lucro,
+    ROUND(((v.lucro_total / m.media_lucro) * 100), 2) AS percentual_media,
+    CASE
+        WHEN v.lucro_total >= (m.media_lucro * 1.2)
+            THEN 1
+        WHEN v.lucro_total >= (m.media_lucro * 1.1)
+            THEN 2
+        ELSE 3
+    END AS prioridade
+FROM vendas_lojas v
+CROSS JOIN media_global m
+WHERE v.lucro_total >= m.media_lucro;
 
-CREATE OR REPLACE VIEW vw_ranking AS
-SELECT stores.store_name, SUM(sales.quantity) AS totalQuantity, stores.country
-FROM sales 
-INNER JOIN stores ON sales.store_id = stores.store_id
-WHERE order_date BETWEEN '2024-12-01' AND '2024-12-31'
-    AND country = 'Germany'
-GROUP BY stores.store_name
-ORDER BY totalQuantity DESC;
+SELECT * FROM vw_monitoramento_vendas;
