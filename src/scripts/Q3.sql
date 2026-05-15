@@ -64,6 +64,7 @@ END$$
 
 DELIMITER ;
 
+/*
 INSERT INTO sales(order_id, order_date, product_id, store_id, customer_id, quantity, unit_price, discount, revenue, cost, profit) 
 VALUES ("0RD000TEST1", "2024-03-10", "P0047", "S049", "C049903", 0, 4.56, 0, 0, 0, 0);
 
@@ -72,5 +73,5 @@ SET quantity = 0
 WHERE order_id = "0RD00000001";
 
 SELECT * FROM sales_audit_log;
-
+*/
 

@@ -1,5 +1,3 @@
-USE chocolatesales;
-
 CREATE OR REPLACE VIEW vw_painel_vendas_gerencial AS
 SELECT
     stores.country,
@@ -16,19 +14,20 @@ GROUP BY
     stores.store_name
 ORDER BY receita_total DESC;
 
-SELECT * FROM vw_painel_vendas_gerencial;
+#SELECT * FROM vw_painel_vendas_gerencial;
 
 CREATE OR REPLACE VIEW vw_painel_vendas_detalhadas AS
 SELECT
-    sales.sale_id,
+    sales.order_id,
     sales.order_date,
     customers.customer_name,
     products.product_name,
     stores.store_name,
     stores.country,
     sales.quantity,
-    sales.cost,
-    ROUND((sales.quantity * sales.cost), 2) AS valor_total_venda
+    ROUND((sales.quantity * sales.cost), 2) AS total_cost,
+    ROUND((sales.quantity * sales.revenue), 2) AS total_revenue,
+    ROUND((sales.quantity * sales.profit), 2) AS total_profit
 FROM sales
 INNER JOIN customers
     ON sales.customer_id = customers.customer_id
@@ -37,4 +36,4 @@ INNER JOIN products
 INNER JOIN stores
     ON sales.store_id = stores.store_id;
 
-SELECT * FROM vw_painel_vendas_detalhadas;
+#SELECT * FROM vw_painel_vendas_detalhadas;

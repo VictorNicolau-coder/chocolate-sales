@@ -21,4 +21,4 @@ SELECT
 FROM AggregatedSales
 ORDER BY semester DESC, ranking_position ASC;
 
-SELECT * FROM vw_ranking WHERE ranking_position <= 3;
+#SELECT * FROM vw_ranking WHERE ranking_position <= 3;

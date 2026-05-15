@@ -29,5 +29,5 @@ END$$
 
 DELIMITER ;
 
-CALL filtro_vendas(NULL, "White Chocolate 60%");
+#CALL filtro_vendas(NULL, "White Chocolate 60%");
 

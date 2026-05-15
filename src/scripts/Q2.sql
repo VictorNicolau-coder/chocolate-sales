@@ -37,4 +37,4 @@ FROM vendas_lojas v
 CROSS JOIN media_global m
 WHERE v.lucro_total >= m.media_lucro;
 
-SELECT * FROM vw_monitoramento_vendas;
+#SELECT * FROM vw_monitoramento_vendas;
