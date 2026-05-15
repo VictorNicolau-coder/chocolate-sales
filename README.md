@@ -68,34 +68,70 @@ O banco de dados possui pelo menos 5 tabelas relacionadas através de chaves pri
 * Kaggle Dataset
 
 ---
-
 # 🚀 Como Executar o Projeto
 
 ## 1. Clonar o repositório
-
+Clone o projeto para sua máquina local:
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/VictorNicolau-coder/chocolate-sales.git
+cd chocolate-sales
 ```
 
-## 2. Criar o banco de dados e inserir os dadoss
+---
 
-Execute os scripts de criação das tabelas:
+## 2. Baixar o Dataset (Kaggle)
 
-```python
-SOURCE schema.sql;
+Este projeto utiliza um dataset público do Kaggle. Siga os passos abaixo:
+
+1. Acesse o dataset: [Chocolate Sales Dataset 2023-2024](https://www.kaggle.com/datasets/ssssws/chocolate-sales-dataset-2023-2024)
+2. Faça o download dos arquivos
+3. Dentro do projeto, crie a pasta:
+```
+src/csv/
+```
+4. Mova todos os arquivos baixados para dentro de `src/csv/`
+
+> ⚠️ A pasta `csv` não está versionada no repositório. É obrigatório criá-la manualmente.
+
+---
+
+## 3. Instalar Dependências
+
+Crie um ambiente virtual e instale as dependências:
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+
+pip install -r requirements.txt
 ```
 
-## 4. Executar consultas e procedures
+---
 
-Os scripts SQL estão organizados por questão:
+## 4. Criar o Banco de Dados e Inserir os Dados
 
-```txt
-/q1
-/q2
-/q3
-/q4
-/q5
+Execute o script de conversão para criar as tabelas e popular o banco:
+```bash
+python src/scripts/converter.py
 ```
+
+> ✅ Certifique-se de que os arquivos CSV estão em `src/csv/` antes de executar este passo.
+
+---
+
+## 5. Executar Consultas e Procedures
+
+Os scripts SQL estão organizados por questão dentro do projeto:
+
+| Pasta | Descrição |
+|-------|-----------|
+| `/q1` | Consulta 1 |
+| `/q2` | Consulta 2 |
+| `/q3` | Consulta 3 |
+| `/q4` | Consulta 4 |
+| `/q5` | Consulta 5 |
+
+Navegue até a pasta desejada e execute o script correspondente.
 
 ---
 
